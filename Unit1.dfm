@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 243
-  Top = 235
+  Left = 228
+  Top = 146
   Width = 1134
   Height = 640
   Caption = 'Form1'
@@ -15,8 +15,8 @@ object Form1: TForm1
   PixelsPerInch = 120
   TextHeight = 16
   object Label1: TLabel
-    Left = 24
-    Top = 16
+    Left = 464
+    Top = 576
     Width = 35
     Height = 16
     Caption = 'Zoom'
@@ -117,8 +117,8 @@ object Form1: TForm1
     Height = 256
   end
   object EditZoom: TEdit
-    Left = 72
-    Top = 16
+    Left = 504
+    Top = 576
     Width = 41
     Height = 24
     TabOrder = 0
@@ -220,6 +220,18 @@ object Form1: TForm1
     Caption = 'Rem WM'
     TabOrder = 11
     OnClick = ButtonRemWMClick
+  end
+  object UpDownZoom: TUpDown
+    Left = 544
+    Top = 576
+    Width = 17
+    Height = 25
+    Min = -32768
+    Max = 32767
+    Position = 0
+    TabOrder = 12
+    Wrap = False
+    OnClick = UpDownZoomClick
   end
   object OpenDialog1: TOpenDialog
     Left = 888

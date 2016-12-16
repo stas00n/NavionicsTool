@@ -16,13 +16,22 @@ TForm1 *Form1;
 __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
 {
-  ;
+  bmOverlay = new Graphics::TBitmap;
+  bmOverlay->Width = PaintBox1->Width;
+  bmOverlay->Height = PaintBox1->Height;
 }
 //---------------------------------------------------------------------------
-
+void TForm1::ChangeZoom(BYTE* newZoom)
+{
+  if(*newZoom > ZOOM_MAX) *newZoom = ZOOM_MAX;
+  if(*newZoom < ZOOM_MIN) *newZoom = ZOOM_MIN;
+  EditZoom->Text = IntToStr(*newZoom);
+}
+//---------------------------------------------------------------------------
 void __fastcall TForm1::FormCreate(TObject *Sender)
 {
-  ;
+  zoom = ZOOM_DEFAULT;
+  ChangeZoom(&zoom);
 }
 //---------------------------------------------------------------------------
 
@@ -30,7 +39,7 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
 void __fastcall TForm1::Button1Click(TObject *Sender)
 {
 
-  proj._zoom = (BYTE)EditZoom->Text.ToInt();
+  proj._zoom = zoom;//(BYTE)EditZoom->Text.ToInt();
 
   double lat =  EditLat->Text.ToDouble();
   double lon =  EditLon->Text.ToDouble();
@@ -53,7 +62,7 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
   r.left = 0; r.right =767;
   r.top = 0; r.Bottom = 511;
 
-  Form1->PaintBox1->Canvas->Rectangle(r) ;
+  //Form1->PaintBox1->Canvas->Rectangle(r) ;
   //Form1->PaintBox1->Canvas->FillRect(r);
   AnsiString filename;
 
@@ -79,6 +88,12 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
 
   //Form1->PaintBox1->Canvas->Rectangle(r) ;
   Form1->PaintBox1->Canvas->Ellipse(r);
+  //bmOverlay->Transparent = true;
+  //bmOverlay->TransparentColor = (TColor)(0x00FFFFFF);//RGB(255,255,255);
+  //bmOverlay->TransparentMode = tmFixed;
+  //bmOverlay->Canvas->Ellipse(r);
+  //Form1->PaintBox1->Canvas->Draw(0,0,bmOverlay);
+  //Form1->PaintBox1->Canvas->MoveTo(50,50);
 }
 //---------------------------------------------------------------------------
 
@@ -368,6 +383,16 @@ if (!OpenDialog1->Execute()) return;
   bm->SaveToFile(OpenDialog1->FileName+"unwater.bmp");
   delete bm;
 
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::UpDownZoomClick(TObject *Sender, TUDBtnType Button)
+{
+  if(Button == btNext) zoom +=1;
+  if(Button == btPrev) zoom -=1;
+  ChangeZoom(&zoom);
+  Button1Click(NULL);
 }
 //---------------------------------------------------------------------------
 

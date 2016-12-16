@@ -10,8 +10,10 @@
 
 
 #include "Projection.h"
+#include "user.h"
 #include <Dialogs.hpp>
 #include <ExtCtrls.hpp>
+#include <ComCtrls.hpp>
 //---------------------------------------------------------------------------
 class TForm1 : public TForm
 {
@@ -40,6 +42,7 @@ __published:	// IDE-managed Components
         TMemo *Memo1;
         TButton *ButtonWM;
         TButton *ButtonRemWM;
+        TUpDown *UpDownZoom;
         void __fastcall FormCreate(TObject *Sender);
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall ButtonPathClick(TObject *Sender);
@@ -50,14 +53,19 @@ __published:	// IDE-managed Components
         void __fastcall ButtonLoadMYFClick(TObject *Sender);
         void __fastcall ButtonWMClick(TObject *Sender);
         void __fastcall ButtonRemWMClick(TObject *Sender);
+        void __fastcall UpDownZoomClick(TObject *Sender,
+          TUDBtnType Button);
 private:	// User declarations
+  void ChangeZoom(BYTE* newZoom);
 public:		// User declarations
         __fastcall TForm1(TComponent* Owner);
 
 
         //user vars
-        int orgX;
-        int orgY;
+  int orgX;
+  int orgY;
+  BYTE zoom;
+  Graphics::TBitmap* bmOverlay;
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;

@@ -264,7 +264,7 @@ DWORD CMyGfx::GenerateStream(BYTE* stream,
                              BYTE clutSize)
 {
   DWORD cnt = 0;
-  BYTE repeatCnt = 0;
+  WORD repeatCnt = 0;
   WORD colindx, colindxprev = 0xFFFF;
   for(DWORD i = 0; i < bmPixelCount; i++)
   {
@@ -273,7 +273,17 @@ DWORD CMyGfx::GenerateStream(BYTE* stream,
      {
        if(repeatCnt != 0)
        {
-         stream[cnt++] = repeatCnt;
+         if(repeatCnt < 256)
+         {
+           stream[cnt - 1] = 0xFF;
+           stream[cnt++] = (BYTE)repeatCnt;
+         }
+         else
+         {
+           stream[cnt - 1] = 0xFE;
+           stream[cnt++] = (BYTE)(repeatCnt & 0xFF);
+           stream[cnt++] = (BYTE)(repeatCnt >> 8);
+         }
          repeatCnt = 0;
        }
        stream[cnt++] = colindx;
@@ -288,17 +298,26 @@ DWORD CMyGfx::GenerateStream(BYTE* stream,
      {
        repeatCnt++;
      }
-     if(repeatCnt >= 254)
+
+     if(repeatCnt == 65535)//Max repetitions reached
      {
-       stream[cnt++] = repeatCnt;
+       stream[cnt - 1] = 0xFE;
+       stream[cnt++] = 0xFF;
+       stream[cnt++] = 0xFF;
        repeatCnt = 0;
        colindxprev = 0xFFFF;
      }
   }
   if(repeatCnt != 0)
   {
-    stream[cnt++] = repeatCnt;
+    stream[cnt++] = (BYTE)(repeatCnt & 0xFF);
+    if(repeatCnt > 255)
+    {
+      stream[cnt - 2] = 0xFE;
+      stream[cnt++] = (BYTE)(repeatCnt >> 8);
+    }
   }
+
   return cnt;
 }
 
@@ -322,13 +341,13 @@ void CMyGfx::LoadMYF2Bitmap(char* filename, Graphics::TBitmap* bm)
   BYTE* stream = (BYTE*)myf + head->StreamOffset;
   BYTE indexedPixl;
   WORD RGB16;
-  BYTE repeatCnt = 0;
+  WORD repeatCnt = 0;
 
   TColor c;
 
   for(DWORD i = 0; i < head->StreamSize; i++)
   {
-    if((indexedPixl = stream[i]) != 0xFF)
+    if((indexedPixl = stream[i]) < 0xFE)
     {
       RGB16 = clut[indexedPixl];
       RGB16to32(&RGB16, img+imgindx);
@@ -337,6 +356,8 @@ void CMyGfx::LoadMYF2Bitmap(char* filename, Graphics::TBitmap* bm)
     else
     {
       repeatCnt = stream[++i];
+      if(indexedPixl == 0xFE)
+        repeatCnt |= (stream[++i] << 8);
       while(repeatCnt)
       {
         RGB16to32(&RGB16, img+imgindx);
