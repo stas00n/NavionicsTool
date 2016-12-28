@@ -43,6 +43,9 @@ __published:	// IDE-managed Components
         TButton *ButtonWM;
         TButton *ButtonRemWM;
         TUpDown *UpDownZoom;
+        TButton *Button2;
+        TButton *Button3;
+        TButton *ButtonPNG;
         void __fastcall FormCreate(TObject *Sender);
         void __fastcall Button1Click(TObject *Sender);
         void __fastcall ButtonPathClick(TObject *Sender);
@@ -55,6 +58,10 @@ __published:	// IDE-managed Components
         void __fastcall ButtonRemWMClick(TObject *Sender);
         void __fastcall UpDownZoomClick(TObject *Sender,
           TUDBtnType Button);
+        void __fastcall Button2Click(TObject *Sender);
+        void __fastcall Button3Click(TObject *Sender);
+        void __fastcall ButtonPNGClick(TObject *Sender);
+        void __fastcall PaintBox2Paint(TObject *Sender);
 private:	// User declarations
   void ChangeZoom(BYTE* newZoom);
 public:		// User declarations
@@ -66,6 +73,7 @@ public:		// User declarations
   int orgY;
   BYTE zoom;
   Graphics::TBitmap* bmOverlay;
+  Graphics::TBitmap* pngbm;
 };
 //---------------------------------------------------------------------------
 extern PACKAGE TForm1 *Form1;

@@ -86,13 +86,13 @@ bool CMyGfx::Bm2My(char* bmpFileName, char* myFileName)
   myhead.imgWidth = pbi->biWidth;
   myhead.imgHidth = pbi->biHeight;
   myhead.CLUTOffset = 20;
-  myhead.CLUT_size = clutUsedSize * 2;
-  myhead.StreamOffset = myhead.CLUTOffset + myhead.CLUT_size;
+  myhead.CLUT_size = clutUsedSize;
+  myhead.StreamOffset = myhead.CLUTOffset + myhead.CLUT_size * 2;
   myhead.StreamSize = streamsize;
   
   BYTE* mybuf = new BYTE[myhead.StreamOffset + streamsize];
   memcpy(mybuf,(BYTE*)&myhead, sizeof(myhead)); //Write header
-  memcpy(mybuf + myhead.CLUTOffset,(BYTE*)clut,myhead.CLUT_size);//Write clut
+  memcpy(mybuf + myhead.CLUTOffset,(BYTE*)clut,myhead.CLUT_size*2);//Write clut
   memcpy(mybuf + myhead.StreamOffset, stream, streamsize);//Write stream
 
   Save(myFileName,mybuf,myhead.StreamOffset + streamsize);
@@ -147,7 +147,7 @@ void CMyGfx::RGB32to16(RGB32_T* src, WORD* dest)
 }
 
 //------------------------------------------------------------------------------
-void CMyGfx::RGB16to32(WORD* src, DWORD* dest)
+void RGB16to32(WORD* src, DWORD* dest)
 {
   WORD c16 = *src;
   DWORD c32;
@@ -160,11 +160,34 @@ void CMyGfx::RGB16to32(WORD* src, DWORD* dest)
   c32 |= (c16 & 0x1F) << 3;
   *dest = c32;
 }
+//------------------------------------------------------------------------------
+TColor RGB16toTColor(WORD* src)
+{
+  WORD c16 = *src;
+  DWORD c;
 
+  typedef struct
+  {
+    BYTE B;
+    BYTE G;
+    BYTE R;
+    BYTE res;
+  }rgb32;
+
+   rgb32* pc = (rgb32*)&c;
+
+
+    pc->R = (c16 & 0x1F) << 3;
+    c16 >>= 5;
+    pc->G = (c16 & 0x3F) << 2;
+    c16 >>= 6;
+    pc->B = (c16 & 0x1F) << 3;
+    return c;
+}
 
 
 //------------------------------------------------------------------------------
-void* CMyGfx::Load(char* filepath)
+void* Load(char* filepath)
 {
   DWORD tmp;
   void* membuf;
@@ -185,12 +208,15 @@ void* CMyGfx::Load(char* filepath)
     return membuf;
   }
   else
+  {
+    DWORD e = GetLastError();
     return NULL;
+  }
 }
 
 //------------------------------------------------------------------------------
 
-DWORD CMyGfx::Save(char* filepath, BYTE* pMemory, DWORD size)
+DWORD Save(char* filepath, BYTE* pMemory, DWORD size)
 {
   DWORD tmp;
   HANDLE hFile = CreateFile(filepath,
@@ -367,7 +393,7 @@ void CMyGfx::LoadMYF2Bitmap(char* filename, Graphics::TBitmap* bm)
     }
 
   }
-  
+
   bm->Width = head->imgWidth;
   bm->Height = head->imgHidth;
   WORD x,y;
@@ -383,4 +409,21 @@ void CMyGfx::LoadMYF2Bitmap(char* filename, Graphics::TBitmap* bm)
     }
   }
   free(myf);
+}
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+// Get CLUT copy and size from file
+BYTE CMyGfx::GetCLUT(char* filename, WORD* clut)
+{
+  void* myf = Load(filename);
+  if(myf == NULL) return 0;
+  MYHEAD_T* head = (MYHEAD_T*)myf;
+
+  WORD* pclut = (WORD*)((BYTE*)myf + head->CLUTOffset);
+  for (BYTE i = 0; i < (BYTE)head->CLUT_size; i++)
+  {
+    *clut++ = pclut[i];
+  }
+  return head->CLUT_size;
 }

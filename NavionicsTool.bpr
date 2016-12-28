@@ -4,12 +4,20 @@
   <MACROS>
     <VERSION value="BCB.06.00"/>
     <PROJECT value="NavionicsTool.exe"/>
-    <OBJFILES value="NavionicsTool.obj Unit1.obj Projection.obj mygfx.obj"/>
+    <OBJFILES value="NavionicsTool.obj Unit1.obj Projection.obj mygfx.obj Unit2.obj utils.obj 
+      Unit3.obj lcdroutine.obj lpng\png.obj lpng\pngread.obj lpng\pngerror.obj 
+      lpng\pngget.obj lpng\pngmem.obj lpng\pngpread.obj lpng\pngrio.obj 
+      lpng\pngrtran.obj lpng\pngrutil.obj lpng\pngset.obj lpng\pngtest.obj 
+      lpng\pngtrans.obj lpng\pngwio.obj lpng\pngwrite.obj lpng\pngwtran.obj 
+      lpng\pngwutil.obj zlib\adler32.obj zlib\compress.obj zlib\crc32.obj 
+      zlib\deflate.obj zlib\gzclose.obj zlib\gzlib.obj zlib\gzread.obj 
+      zlib\gzwrite.obj zlib\infback.obj zlib\inffast.obj zlib\inflate.obj 
+      zlib\inftrees.obj zlib\trees.obj zlib\uncompr.obj zlib\zutil.obj"/>
     <RESFILES value="NavionicsTool.res"/>
     <IDLFILES value=""/>
     <IDLGENFILES value=""/>
     <DEFFILE value=""/>
-    <RESDEPEN value="$(RESFILES) Unit1.dfm"/>
+    <RESDEPEN value="$(RESFILES) Unit1.dfm Unit2.dfm Unit3.dfm"/>
     <LIBFILES value=""/>
     <LIBRARIES value="rtl.lib vcl.lib"/>
     <SPARELIBS value="vcl.lib rtl.lib"/>
@@ -20,7 +28,7 @@
       inetdbbde.bpi inetdbxpress.bpi inetdb.bpi nmfast.bpi webdsnap.bpi 
       bcbie.bpi websnap.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
       indy.bpi bcb2kaxserver.bpi"/>
-    <PATHCPP value=".;"/>
+    <PATHCPP value=".;lpng;lpng;lpng;lpng;lpng;lpng;lpng;lpng;lpng;lpng;lpng;lpng;lpng;lpng;lpng;lpng;zlib;zlib;zlib;zlib;zlib;zlib;zlib;zlib;zlib;zlib;zlib;zlib;zlib;zlib;zlib"/>
     <PATHPAS value=".;"/>
     <PATHRC value=".;"/>
     <PATHASM value=".;"/>
@@ -30,13 +38,14 @@
     <USERDEFINES value="_DEBUG"/>
     <SYSDEFINES value="NO_STRICT"/>
     <MAINSOURCE value="NavionicsTool.cpp"/>
-    <INCLUDEPATH value="zlib;lpng;&quot;C:\Program Files\Borland\CBuilder6\Projects&quot;;C:\Users\User\Borland\SASPlanet-reverse;$(BCB)\include;$(BCB)\include\vcl"/>
-    <LIBPATH value="zlib;lpng;&quot;C:\Program Files\Borland\CBuilder6\Projects&quot;;C:\Users\User\Borland\SASPlanet-reverse;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <INCLUDEPATH value="C:\Windows\system32;zlib;lpng;&quot;C:\Program Files\Borland\CBuilder6\Projects&quot;;C:\Users\User\Borland\SASPlanet-reverse;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="C:\Windows\system32;zlib;lpng;&quot;C:\Program Files\Borland\CBuilder6\Projects&quot;;C:\Users\User\Borland\SASPlanet-reverse;$(BCB)\lib\obj;$(BCB)\lib"/>
     <WARNINGS value="-w-par"/>
     <OTHERFILES value=""/>
   </MACROS>
   <OPTIONS>
-    <IDLCFLAGS value="-Izlib -Ilpng -I&quot;C:\Program Files\Borland\CBuilder6\Projects&quot; 
+    <IDLCFLAGS value="-IC:\Windows\system32 -Izlib -Ilpng 
+      -I&quot;C:\Program Files\Borland\CBuilder6\Projects&quot; 
       -IC:\Users\User\Borland\SASPlanet-reverse -I$(BCB)\include 
       -I$(BCB)\include\vcl -src_suffix cpp -D_DEBUG -boa"/>
     <CFLAG1 value="-Od -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -r- -a8 -b- -k -y -v -vi- -c 
@@ -59,6 +68,52 @@
       <FILE FILENAME="Unit1.cpp" FORMNAME="Form1" UNITNAME="Unit1" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="Projection.cpp" FORMNAME="" UNITNAME="Projection" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="mygfx.cpp" FORMNAME="" UNITNAME="mygfx" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Unit2.cpp" FORMNAME="Form2" UNITNAME="Unit2" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="utils.cpp" FORMNAME="" UNITNAME="utils" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="Unit3.cpp" FORMNAME="Form3" UNITNAME="Unit3" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lcdroutine.cpp" FORMNAME="" UNITNAME="lcdroutine" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\png.c" FORMNAME="" UNITNAME="png" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngread.c" FORMNAME="" UNITNAME="pngread" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngerror.c" FORMNAME="" UNITNAME="pngerror.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngget.c" FORMNAME="" UNITNAME="pngget.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngmem.c" FORMNAME="" UNITNAME="pngmem.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngpread.c" FORMNAME="" UNITNAME="pngpread.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngrio.c" FORMNAME="" UNITNAME="pngrio.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngrtran.c" FORMNAME="" UNITNAME="pngrtran.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngrutil.c" FORMNAME="" UNITNAME="pngrutil.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngset.c" FORMNAME="" UNITNAME="pngset.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngtest.c" FORMNAME="" UNITNAME="pngtest.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngtrans.c" FORMNAME="" UNITNAME="pngtrans.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngwio.c" FORMNAME="" UNITNAME="pngwio.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngwrite.c" FORMNAME="" UNITNAME="pngwrite.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngwtran.c" FORMNAME="" UNITNAME="pngwtran.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="lpng\pngwutil.c" FORMNAME="" UNITNAME="pngwutil.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\adler32.c" FORMNAME="" UNITNAME="adler32.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\compress.c" FORMNAME="" UNITNAME="compress.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\crc32.c" FORMNAME="" UNITNAME="crc32.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\deflate.c" FORMNAME="" UNITNAME="deflate.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\gzclose.c" FORMNAME="" UNITNAME="gzclose.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\gzlib.c" FORMNAME="" UNITNAME="gzlib.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\gzread.c" FORMNAME="" UNITNAME="gzread.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\gzwrite.c" FORMNAME="" UNITNAME="gzwrite.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\infback.c" FORMNAME="" UNITNAME="infback.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\inffast.c" FORMNAME="" UNITNAME="inffast.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\inflate.c" FORMNAME="" UNITNAME="inflate.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\inftrees.c" FORMNAME="" UNITNAME="inftrees.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\trees.c" FORMNAME="" UNITNAME="trees.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\uncompr.c" FORMNAME="" UNITNAME="uncompr.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\zutil.c" FORMNAME="" UNITNAME="zutil.c" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\crc32.h" FORMNAME="" UNITNAME="crc32.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\deflate.h" FORMNAME="" UNITNAME="deflate.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\gzguts.h" FORMNAME="" UNITNAME="gzguts.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\inffast.h" FORMNAME="" UNITNAME="inffast.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\inffixed.h" FORMNAME="" UNITNAME="inffixed.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\inflate.h" FORMNAME="" UNITNAME="inflate.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\inftrees.h" FORMNAME="" UNITNAME="inftrees.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\trees.h" FORMNAME="" UNITNAME="trees.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\zconf.h" FORMNAME="" UNITNAME="zconf.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\zlib.h" FORMNAME="" UNITNAME="zlib.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="zlib\zutil.h" FORMNAME="" UNITNAME="zutil.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
   </FILELIST>
   <BUILDTOOLS>
   </BUILDTOOLS>

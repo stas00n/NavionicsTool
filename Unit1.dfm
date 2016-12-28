@@ -115,6 +115,7 @@ object Form1: TForm1
     Top = 312
     Width = 256
     Height = 256
+    OnPaint = PaintBox2Paint
   end
   object EditZoom: TEdit
     Left = 504
@@ -232,6 +233,33 @@ object Form1: TForm1
     TabOrder = 12
     Wrap = False
     OnClick = UpDownZoomClick
+  end
+  object Button2: TButton
+    Left = 32
+    Top = 16
+    Width = 75
+    Height = 25
+    Caption = 'Button2'
+    TabOrder = 13
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 1008
+    Top = 8
+    Width = 75
+    Height = 25
+    Caption = 'LCD'
+    TabOrder = 14
+    OnClick = Button3Click
+  end
+  object ButtonPNG: TButton
+    Left = 104
+    Top = 16
+    Width = 75
+    Height = 25
+    Caption = 'PNG'
+    TabOrder = 15
+    OnClick = ButtonPNGClick
   end
   object OpenDialog1: TOpenDialog
     Left = 888

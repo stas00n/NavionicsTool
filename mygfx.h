@@ -46,15 +46,18 @@ class CMyGfx
 public:
   bool Bm2My(char* bmpFileName, char* myFileName);
   void RGB24to16(RGB24_T* src, WORD* dest);
-  void RGB16to32(WORD* src, DWORD* dest);
+  //void RGB16to32(WORD* src, DWORD* dest);
+
   void RGB32to16(RGB32_T* src, WORD* dest);
   void LoadMYF2Bitmap(char* filename, Graphics::TBitmap* bm);
+
+  BYTE GetCLUT(char* filename, WORD* clut);
 
   WORD CountColors(WORD* bitmap16, DWORD pixelCount);
   WORD BuildCLUT(WORD* bitmap16, DWORD pixelCount, WORD* CLUT);
   DWORD GenerateStream(BYTE* stream, WORD* bm16,DWORD bmPixelCount,WORD* clut,BYTE clutSize);
-  void* Load(char* filepath);
-  DWORD Save(char* filepath, BYTE* pMemory, DWORD size);
+ // void* Load(char* filepath);
+  //DWORD Save(char* filepath, BYTE* pMemory, DWORD size);
 // Public vars
 public:
   MYHEAD_T* pHead;
@@ -63,5 +66,9 @@ public:
 
 };
 
+  void* Load(char* filepath);
+  DWORD Save(char* filepath, BYTE* pMemory, DWORD size);
+  void RGB16to32(WORD* src, DWORD* dest);
+  TColor RGB16toTColor(WORD* src);
 #endif /* _MYGFX_H_ */
  

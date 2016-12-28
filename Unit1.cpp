@@ -4,10 +4,16 @@
 #pragma hdrstop
 
 #include "Unit1.h"
+#include "Unit2.h"
+#include "Unit3.h"
 #include <windows.h>
 #include <stdio.h>
 #include <io.h>
 #include "mygfx.h"
+
+#include "zlib.h"
+#include "png.h"
+
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
 #pragma resource "*.dfm"
@@ -17,6 +23,8 @@ __fastcall TForm1::TForm1(TComponent* Owner)
         : TForm(Owner)
 {
   bmOverlay = new Graphics::TBitmap;
+  pngbm = new Graphics::TBitmap;
+
   bmOverlay->Width = PaintBox1->Width;
   bmOverlay->Height = PaintBox1->Height;
 }
@@ -393,6 +401,68 @@ void __fastcall TForm1::UpDownZoomClick(TObject *Sender, TUDBtnType Button)
   if(Button == btPrev) zoom -=1;
   ChangeZoom(&zoom);
   Button1Click(NULL);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button2Click(TObject *Sender)
+{
+  Form2->Show();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button3Click(TObject *Sender)
+{
+  Form3->Show();
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::ButtonPNGClick(TObject *Sender)
+{
+  if(!OpenDialog1->Execute()) return;
+  //void* pngfile = Load(OpenDialog1->FileName.c_str());
+  png_image image;
+  memset(&image, 0, (sizeof image));
+  image.version = PNG_IMAGE_VERSION;
+  image.format = PNG_FORMAT_RGB;
+  image.opaque = NULL;
+  if(png_image_begin_read_from_file(&image, OpenDialog1->FileName.c_str()) != 0)
+  {
+    png_bytep buffer;
+    int sz = (PNG_IMAGE_SIZE(image));
+    buffer = (BYTE*) malloc(sz);
+  //  if (buffer != NULL &&
+     int res =       png_image_finish_read(&image, NULL/*background*/, buffer,
+                0/*row_stride*/, NULL/*colormap*/) ;
+
+  //Graphics::TBitmap* bm = new Graphics::TBitmap;
+  pngbm->Width = image.width;
+  pngbm->Height = image.height;
+  TColor c;
+  DWORD* pdw = (DWORD*)buffer;
+  for(int y = 0; y < image.height; y++)
+  {
+    for(int x = 0; x < image.width; x++)
+    {
+      c = *(pdw++);
+      c &= 0xFFFFFF;
+      pngbm->Canvas->Pixels[x][y] = c;
+    }
+  }
+
+  PaintBox2->Canvas->Draw(0,0,pngbm);
+
+  //delete bm;
+  free(buffer);
+  }
+
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::PaintBox2Paint(TObject *Sender)
+{
+  PaintBox2->Canvas->Draw(0,0,pngbm);
 }
 //---------------------------------------------------------------------------
 
