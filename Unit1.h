@@ -62,6 +62,7 @@ __published:	// IDE-managed Components
         void __fastcall Button3Click(TObject *Sender);
         void __fastcall ButtonPNGClick(TObject *Sender);
         void __fastcall PaintBox2Paint(TObject *Sender);
+        void __fastcall PaintBox1Paint(TObject *Sender);
 private:	// User declarations
   void ChangeZoom(BYTE* newZoom);
 public:		// User declarations

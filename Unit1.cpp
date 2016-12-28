@@ -84,6 +84,12 @@ void __fastcall TForm1::Button1Click(TObject *Sender)
       filename = GenerateTilePath(tx+j, ty+i, proj._zoom, &(Edit1->Text));
       if(!FileExists(filename))
         filename = (Edit1->Text) + "missed.bmp";
+      if(!FileExists(filename))
+      {
+        AnsiString msg = "Unable to open "+filename+". Check Paths";
+        MessageBoxA(Form1->WindowHandle, msg.c_str(),"Error",MB_OK);
+        return;
+      }
       LoadBMP(filename.c_str(), x, y);
       x += 256;
     }
@@ -463,6 +469,12 @@ void __fastcall TForm1::ButtonPNGClick(TObject *Sender)
 void __fastcall TForm1::PaintBox2Paint(TObject *Sender)
 {
   PaintBox2->Canvas->Draw(0,0,pngbm);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::PaintBox1Paint(TObject *Sender)
+{
+  //Button1Click(NULL);        
 }
 //---------------------------------------------------------------------------
 

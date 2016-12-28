@@ -1,1 +1,6 @@
 *.~*
+*.tds
+/zlib/*.obj
+/lpng/*.obj
+/*.obj
+

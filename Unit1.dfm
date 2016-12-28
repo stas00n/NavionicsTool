@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 228
-  Top = 146
+  Left = 265
+  Top = 418
   Width = 1134
   Height = 640
   Caption = 'Form1'
@@ -57,6 +57,7 @@ object Form1: TForm1
     Color = clCream
     ParentColor = False
     OnMouseMove = PaintBox1MouseMove
+    OnPaint = PaintBox1Paint
   end
   object Label4: TLabel
     Left = 592
